@@ -1,5 +1,7 @@
 package br.com.associado.api;
 
+import br.com.associado.bo.Associado;
+import br.com.associado.converter.AssociadoConverter;
 import br.com.associado.dto.AssociadoDTO;
 import br.com.associado.service.AssociadoService;
 import io.swagger.annotations.ApiOperation;
@@ -17,10 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class AssociadoRest {
 
     private final AssociadoService associadoService;
+    private final AssociadoConverter associadoConverter;
 
     @Autowired
-    public AssociadoRest(AssociadoService associadoService) {
+    public AssociadoRest(AssociadoService associadoService,
+                         AssociadoConverter associadoConverter) {
         this.associadoService = associadoService;
+        this.associadoConverter = associadoConverter;
     }
 
     @ApiOperation(value = "Salvar associado", response = AssociadoDTO.class)
@@ -29,7 +34,7 @@ public class AssociadoRest {
             @ApiResponse(code = 500, message = "Erro inesperado")
     })
     @PostMapping
-    public ResponseEntity<String> criarAssociado(@RequestBody AssociadoDTO dto) {
-        return ResponseEntity.ok(associadoService.adicionaAssociado(dto));
+    public ResponseEntity<Associado> criarAssociado(@RequestBody AssociadoDTO dto) throws Exception {
+        return ResponseEntity.ok(associadoService.criarAssociado(dto));
     }
 }
