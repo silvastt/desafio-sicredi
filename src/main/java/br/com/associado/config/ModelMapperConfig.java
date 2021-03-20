@@ -1,4 +1,4 @@
-package br.com.associado.converter;
+package br.com.associado.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

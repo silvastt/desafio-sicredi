@@ -15,10 +15,19 @@ import java.time.LocalDate;
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
   
   @ExceptionHandler(ErroInternoException.class)
-  public final ResponseEntity<ExceptionResponse> handleNotFoundException(ErroInternoException ex, WebRequest request) {
+  public final ResponseEntity<ExceptionResponse> erroInternoException(ErroInternoException ex, WebRequest request) {
     ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDate.now(), ex.getMessage(),
         request.getDescription(false), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
 
     return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
   }
+
+  @ExceptionHandler(ObjetoNaoEncontradoException.class)
+  public final ResponseEntity<ExceptionResponse> objetoNaoEncontratoException(ObjetoNaoEncontradoException ex, WebRequest request) {
+    ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDate.now(), ex.getMessage(),
+            request.getDescription(false), HttpStatus.NOT_FOUND.getReasonPhrase());
+
+    return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.NOT_FOUND);
+  }
+
 }
