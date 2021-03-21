@@ -10,6 +10,7 @@ import br.com.associado.validate.AssociadoValidate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -46,12 +47,18 @@ public class AssociadoService {
         }
     }
 
-    public List<Associado> listarAssociados() throws Exception {
+    public List<AssociadoDTO> listarAssociados() throws Exception {
         try {
-            return associadoRepository.findAll();
+            List<AssociadoDTO> listaDTO = new ArrayList<>();
+            associadoRepository.findAll().forEach(a -> adicionaLista(listaDTO, a));
+            return listaDTO;
         } catch (Exception e) {
             throw new ErroInternoException(ERRO_LISTAR_ASSOCIADOS);
         }
+    }
+
+    private void adicionaLista(List<AssociadoDTO> listaDTO, Associado a) {
+        listaDTO.add(associadoConverter.toDTO(a));
     }
 
     public Associado buscarAssociado(String id) {

@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 public class AssociadoDTO {
 
+    private String id;
     private String nome;
     private String cpf;
 

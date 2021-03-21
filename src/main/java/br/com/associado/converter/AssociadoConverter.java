@@ -23,8 +23,10 @@ public class AssociadoConverter {
 
     public AssociadoDTO toDTO(Associado associado) {
         Assert.notNull(associado, ERRO_CONVERSAO_ASSOCIADO);
-        AssociadoDTO associadoDTO = mapper.map(associado, AssociadoDTO.class);
-        return associadoDTO;
+        return AssociadoDTO.builder()
+                           .id(associado.getId().toString())
+                           .cpf(associado.getCpf())
+                           .nome(associado.getNome()).build();
     }
 
 }
