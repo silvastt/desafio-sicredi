@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component("AssociadoConverter")
 public class AssociadoConverter {
 
+    private static final String ERRO_CONVERSAO_ASSOCIADO = "Erro ao converter associado!";
     private ModelMapper mapper;
 
     public AssociadoConverter(ModelMapper mapper) {
@@ -16,13 +17,14 @@ public class AssociadoConverter {
     }
 
     public Associado toModel(AssociadoDTO dto) {
-        Assert.notNull(dto, "AssociadoDTO não pode ser nulo para a conversão!");
+        Assert.notNull(dto, ERRO_CONVERSAO_ASSOCIADO);
         return mapper.map(dto, Associado.class);
     }
 
     public AssociadoDTO toDTO(Associado associado) {
-        Assert.notNull(associado, "Associado não pode ser nulo para a conversão");
+        Assert.notNull(associado, ERRO_CONVERSAO_ASSOCIADO);
         AssociadoDTO associadoDTO = mapper.map(associado, AssociadoDTO.class);
         return associadoDTO;
     }
+
 }
